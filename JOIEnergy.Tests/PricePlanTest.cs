@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using JOIEnergy.Domain;
+﻿using JOIEnergy.Domain;
 using JOIEnergy.Enums;
+using System;
 using Xunit;
 
 namespace JOIEnergy.Tests
 {
     public class PricePlanTest
     {
-        private PricePlan _pricePlan;
+        private readonly PricePlan _pricePlan;
 
         public PricePlanTest()
         {
@@ -16,16 +15,10 @@ namespace JOIEnergy.Tests
             {
                 EnergySupplier = Supplier.TheGreenEco,
                 UnitRate = 20m,
-                PeakTimeMultiplier = new List<PeakTimeMultiplier> {
-                    new PeakTimeMultiplier { 
-                        DayOfWeek = DayOfWeek.Saturday,
-                        Multiplier = 2m
-                    },
-                    new PeakTimeMultiplier {
-                        DayOfWeek = DayOfWeek.Sunday,
-                        Multiplier = 10m
-                    }
-                }
+                PeakTimeMultiplier = [
+                    new() { DayOfWeek = DayOfWeek.Saturday, Multiplier = 2m },
+                    new() { DayOfWeek = DayOfWeek.Sunday, Multiplier = 10m }
+                ]
             };
         }
 

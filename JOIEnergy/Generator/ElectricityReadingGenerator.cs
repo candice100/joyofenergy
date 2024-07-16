@@ -1,20 +1,18 @@
-﻿using System;
+﻿using JOIEnergy.Domain;
+using System;
 using System.Collections.Generic;
-using JOIEnergy.Domain;
 
 namespace JOIEnergy.Generator
 {
     public class ElectricityReadingGenerator
     {
-        public ElectricityReadingGenerator()
-        {
+        public ElectricityReadingGenerator() { }
 
-        }
-        public List<ElectricityReading> Generate(int number)
+        public List<ElectricityReading> Generate(int count)
         {
             var readings = new List<ElectricityReading>();
             var random = new Random();
-            for (int i = 0; i < number; i++)
+            for (int i = count; i > 0; i++)
             {
                 var reading = (decimal)random.NextDouble();
                 var electricityReading = new ElectricityReading
@@ -24,7 +22,7 @@ namespace JOIEnergy.Generator
                 };
                 readings.Add(electricityReading);
             }
-            readings.Sort((reading1, reading2) => reading1.Time.CompareTo(reading2.Time));
+            
             return readings;
         }
     }

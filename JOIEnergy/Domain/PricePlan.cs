@@ -1,25 +1,22 @@
-﻿using System;
+﻿using JOIEnergy.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using JOIEnergy.Enums;
 
 namespace JOIEnergy.Domain
 {
     public class PricePlan
     {
         public string PlanName { get; set; }
-        public Supplier EnergySupplier { get; set; }
         public decimal UnitRate { get; set; }
-        public IList<PeakTimeMultiplier> PeakTimeMultiplier { get; set;}
+        public Supplier EnergySupplier { get; set; }
+        public IList<PeakTimeMultiplier> PeakTimeMultiplier { get; set; }
 
-        public decimal GetPrice(DateTime datetime) {
-            var multiplier = PeakTimeMultiplier.FirstOrDefault(m => m.DayOfWeek == datetime.DayOfWeek);
+        public decimal GetPrice(DateTime datetime)
+        {
+            var multiplier = PeakTimeMultiplier.FirstOrDefault(m => m.DayOfWeek == datetime.DayOfWeek)?.Multiplier ?? 1;
 
-            if (multiplier?.Multiplier != null) {
-                return multiplier.Multiplier * UnitRate;
-            } else {
-                return UnitRate;
-            }
+            return multiplier * UnitRate;
         }
     }
 
