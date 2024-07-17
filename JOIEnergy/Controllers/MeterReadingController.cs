@@ -14,17 +14,11 @@ namespace JOIEnergy.Controllers
         [HttpPost("store")]
         public ObjectResult Post([FromBody] MeterReadings meterReadings)
         {
-            if (!IsMeterReadingsValid(meterReadings))
+            if (!meterReadingService.IsMeterReadingsValid(meterReadings))
                 return new BadRequestObjectResult("Bad Request");
 
             meterReadingService.StoreReadings(meterReadings);
             return new OkObjectResult("{}");
-        }
-
-        private bool IsMeterReadingsValid(MeterReadings meterReadings)
-        {
-            var isValid = !string.IsNullOrWhiteSpace(meterReadings?.SmartMeterId) && (meterReadings.ElectricityReadings?.Count ?? 0) != 0;
-            return isValid;
         }
 
         [HttpGet("read/{smartMeterId}")]

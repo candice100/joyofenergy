@@ -9,13 +9,6 @@ namespace JOIEnergy.Services
     {
         public interface IDebug { void Log(string s); };
 
-        private decimal CalculateAverageReading(List<ElectricityReading> electricityReadings)
-        {
-            var newSummedReadings = electricityReadings.Select(readings => readings.Reading).Aggregate((reading, accumulator) => reading + accumulator);
-
-            return newSummedReadings / electricityReadings.Count;
-        }
-
         private decimal CalculateTimeElapsed(List<ElectricityReading> electricityReadings)
         {
             var first = electricityReadings.Min(reading => reading.Time);
@@ -26,9 +19,9 @@ namespace JOIEnergy.Services
 
         private decimal CalculateCost(List<ElectricityReading> electricityReadings, PricePlan pricePlan)
         {
-            var average = CalculateAverageReading(electricityReadings);
+            var averageReading = electricityReadings.Average(readings => readings.Reading);
             var timeElapsed = CalculateTimeElapsed(electricityReadings);
-            var averagedCost = average / timeElapsed;
+            var averagedCost = averageReading / timeElapsed;
             return Math.Round(averagedCost * pricePlan.UnitRate, 3);
         }
 

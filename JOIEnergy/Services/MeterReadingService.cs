@@ -17,5 +17,10 @@ namespace JOIEnergy.Services
             else
                 meterAssociatedReadings.Add(meterReadings.SmartMeterId, meterReadings.ElectricityReadings);
         }
+        public bool IsMeterReadingsValid(MeterReadings meterReadings)
+        {
+            var isValid = !string.IsNullOrWhiteSpace(meterReadings?.SmartMeterId) && (meterReadings.ElectricityReadings?.Count ?? 0) != 0;
+            return isValid;
+        }
     }
 }

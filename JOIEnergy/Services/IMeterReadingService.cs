@@ -7,5 +7,6 @@ namespace JOIEnergy.Services
     {
         List<ElectricityReading> GetReadings(string smartMeterId);
         void StoreReadings(MeterReadings meterReadings);
+        bool IsMeterReadingsValid(MeterReadings meterReadings);
     }
 }
